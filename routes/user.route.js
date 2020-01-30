@@ -629,4 +629,15 @@ router.post('/onbording',(req,res)=>{
 })
 
 //service for onbording form(30-01-2020)
+
+//service for onbording form(30-01-2020) get
+router.get('/getemployees',(req,res)=>{
+  onbordingform.find().then(data=>{
+    res.status(200).send({message:"user role got successfully",data:data})
+  }).catch(err=>{
+    res.status(400).send({message:"error while getting user role",err:err})
+  });
+})
+// service for onbording form(30-01-2020) get
+
 module.exports = router;
