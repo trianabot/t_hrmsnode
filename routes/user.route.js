@@ -23,6 +23,7 @@ const roleModel=require('../models/userrole.model');
 const path=require('path');
 
 const birthdayModel = require('../models/customer.model');
+const onbordingform=require('../models/onboardingform.model');
 
 router.get('/test', user_controller.testuser);
 
@@ -560,4 +561,72 @@ router.get('/getuserrole',(req,res)=>{
 })
 // service for getting user role  (24-01-2020)
 
+
+//service for onbording form(30-01-2020)
+router.post('/onbording',(req,res)=>{
+  
+  let uniqId = uniqid();
+
+     // Make sure this account doesn't already exist
+     onbordingform.findOne({ emailId: req.body.emailId }, (err, user) => {
+      // Make sure user doesn't already exist
+      if (user) return res.status(400).send({ message: 'The email address you have entered is already associated with our organisation.' });
+     
+
+      try {
+        let model=onbordingform({
+          companyId: req.body.companyId,
+           empName: req.body.empName,
+           dateofbirth: Date.parse(req.body.dateofbirth),
+           address1: req.body.address1,
+           address2: req.body.address2,
+           city: req.body.city,
+           emailId: req.body.emailId,
+           phone: req.body.phone,
+           mobile: req.body.mobile,
+           emergency: req.body.emergency,
+           panNumber: req.body.panNumber,
+           aadhaarNo:req.body.aadhaarNo,
+           joinDate: Date.parse(req.body.joinDate),
+           bankAccount:req.body.bankAccount,
+           ess: req.body.ess,
+           confirmation: req.body.confirmation,
+           pfUan:req.body.pfUan,
+           pfNumber: req.body.pfNumber,
+           pfEnroleDate: req.body.pfEnroleDate,
+           epfNumber:req.body.epfNumber,
+           esiNumber:req.body.esiNumber,
+           ctc:req.body.ctc,
+           fbp:req.body.fbp,
+           variablePay:req.body.variablePay,
+           total:req.body.total,
+           differenceAmount:req.body.differenceAmount,
+           productType:req.body.productType,
+           taxStatus:req.body.taxStatus,
+           state: req.body.state,
+           gender:req.body.gender,
+           jobType: req.body.jobType,
+           paymentMode: req.body.paymentMode,
+           location: req.body.location,
+           department: req.body.department,
+           Designation: req.body.Designation,
+           Relationship: req.body.Relationship,
+         });
+        model.save((err, userdata) => {
+          if (!err) {
+           res.status(200).send({message:"emp added successfully",data:userdata})
+          } else {
+            console.log("data not saved ..!",err);
+            res.status(500).send({ message: err });
+          }
+        });
+      } catch (e) {
+        console.log("Catch block:" + e);
+        log.error('Route failed with error', e);
+        res.status(500).send(e);
+      }
+    });
+})
+
+//service for onbording form(30-01-2020)
 module.exports = router;
