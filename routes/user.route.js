@@ -35,7 +35,7 @@ router.get('/confirmation/:token', user_controller.confirmationPost);
 
 router.post('/login', user_controller.loginuser);
 
-router.get('/getUser', user_controller.getUserbyId);
+router.get('/getUser/:userId', user_controller.getUserbyId);
 
 router.get('/getAdminUsers', user_controller.getAdminUsers);
 
@@ -639,5 +639,15 @@ router.get('/getemployees',(req,res)=>{
   });
 })
 // service for onbording form(30-01-2020) get
+
+//getEmployeeById
+router.get('/getEmployeeById/:empId', (req, res, next)=>{
+  const empId = req.params.empId;
+  onbordingform.findOne({companyId:empId}).then((doc)=>{
+    res.status(200).json({message:'Employee found', data:doc});
+  }).catch((err)=>{
+    res.status(500).json({message:'Internal server error'});
+  });
+});
 
 module.exports = router;

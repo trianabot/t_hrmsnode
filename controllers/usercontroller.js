@@ -198,7 +198,8 @@ exports.loginuser = (req, res) => {
 
 
 exports.getUserbyId = (req, res, ) => {
-  UserRegisterModel.find({ isVerified: true}, function (err, data) {
+  const userId = req.params.userId;
+  UserRegisterModel.findOne({ companyId: userId}, function (err, data) {
     if (err) {
       console.log(err);
       return res.send(500, 'Something Went wrong with Retrieving data');
