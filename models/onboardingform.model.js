@@ -6,7 +6,7 @@ const userroleSchema = new Schema({
     empName: { type: String, required: true },
     dateofbirth: { type: Date},
     address1: { type: String, required: true },
-    address2: { type: String, required: true },
+    // address2: { type: String, required: true },
     city: { type: String, required: true },
     emailId: { type: String, required: true , unique: true},
     phone: { type: String, required: true },
